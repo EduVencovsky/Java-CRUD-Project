@@ -6,7 +6,7 @@
 package projetooo;
 
 import javax.swing.JOptionPane;
-
+import projetooo.mysqlConnector;
 /**
  *
  * @author Hybriun System
@@ -134,7 +134,7 @@ public class Login extends javax.swing.JFrame {
             telaInicial.setVisible(true); // mostrar tela
             telaInicial.setLocationRelativeTo(null); //abrir no centro
             this.dispose();
-        }else{
+        }else{ 
             JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Erro de login", JOptionPane.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos!!");
         }
