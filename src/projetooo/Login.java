@@ -5,6 +5,12 @@
  */
 package projetooo;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import projetooo.mysqlConnector;
 /**
@@ -126,20 +132,27 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        Inicio telaInicial = new Inicio();
-        String usuario = txfUsuario.getText();
-        String senha = jpfSenha.getText();
+        Connection conn = new mysqlConnector().conn;
+            try {                
+                String usuario = txfUsuario.getText();
+                String senha = jpfSenha.getText();
+                Statement stmd = conn.createStatement();
+                ResultSet rs = stmd.executeQuery("SELECT USERNAME FROM USER WHERE USERNAME = '" + usuario + "' AND PASSWORD = '" + senha + "'");
+                             
+                if(rs.next()){
+                    Inicio telaInicial = new Inicio();
+                    telaInicial.setVisible(true); // mostrar tela
+                    telaInicial.setLocationRelativeTo(null); //abrir no centro
+                    this.dispose();
+                } else{ 
+                    JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Erro de login", JOptionPane.ERROR_MESSAGE);
+                }
 
-        if ("123".equals(usuario) && "123".equals(senha)) {
-            telaInicial.setVisible(true); // mostrar tela
-            telaInicial.setLocationRelativeTo(null); //abrir no centro
-            this.dispose();
-        }else{ 
-            JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Erro de login", JOptionPane.ERROR_MESSAGE);
-            //JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos!!");
-        }
-
-
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Problema de connexão com Servidor", "Erro de login", JOptionPane.ERROR_MESSAGE);
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+       
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
