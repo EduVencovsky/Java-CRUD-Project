@@ -45,6 +45,7 @@ public class Login extends javax.swing.JFrame {
         lbSenha = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
         jpfSenha = new javax.swing.JPasswordField();
+        btnLogin1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -76,6 +77,19 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        btnLogin1.setBackground(new java.awt.Color(51, 51, 255));
+        btnLogin1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btnLogin1.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogin1.setText("Cadastrar Usuario");
+        btnLogin1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+        btnLogin1.setBorderPainted(false);
+        btnLogin1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogin1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogin1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -94,7 +108,8 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(lbSenha)
                             .addComponent(txfUsuario)
                             .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                            .addComponent(jpfSenha))))
+                            .addComponent(jpfSenha)
+                            .addComponent(btnLogin1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -114,7 +129,9 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jpfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -137,12 +154,13 @@ public class Login extends javax.swing.JFrame {
                 String usuario = txfUsuario.getText();
                 String senha = jpfSenha.getText();
                 Statement stmd = conn.createStatement();
-                ResultSet rs = stmd.executeQuery("SELECT USERNAME FROM USER WHERE USERNAME = '" + usuario + "' AND PASSWORD = '" + senha + "'");
+                ResultSet rs = stmd.executeQuery("SELECT ID FROM USER WHERE USERNAME = '" + usuario + "' AND PASSWORD = '" + senha + "'");
                              
                 if(rs.next()){
                     Inicio telaInicial = new Inicio();
                     telaInicial.setVisible(true); // mostrar tela
                     telaInicial.setLocationRelativeTo(null); //abrir no centro
+                    GlobalVariables.UserId = rs.getInt("ID");
                     this.dispose();
                 } else{ 
                     JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Erro de login", JOptionPane.ERROR_MESSAGE);
@@ -154,6 +172,13 @@ public class Login extends javax.swing.JFrame {
             }
        
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin1ActionPerformed
+        CadastroUsuario telaCadastroUsuario = new CadastroUsuario();
+        telaCadastroUsuario.setVisible(true); // mostrar tela
+        telaCadastroUsuario.setLocationRelativeTo(null); //abrir no centro
+        this.dispose();
+    }//GEN-LAST:event_btnLogin1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,6 +215,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnLogin1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jpfSenha;
     private javax.swing.JLabel lbSenha;

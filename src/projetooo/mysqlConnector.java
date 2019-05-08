@@ -33,11 +33,19 @@ public class mysqlConnector {
             conn = null; 
         }
     }
+
+    @Override
+    public void finalize() throws Throwable{
+        super.finalize();
+        close();
+    }
+    
     public void close()
     {
         try {
             if(conn != null){
                 conn.close();
+                System.out.print("Connection closed");
             } else {                       
                 System.out.print("Cannot close an unopened connection");
             }

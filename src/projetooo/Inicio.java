@@ -340,7 +340,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-
+        
         lbEncontrado.setText("Cliente encontrado!");
         lbNome.setText("Vitor Facioli");
         lbCPF.setText("443.459.168-10");
