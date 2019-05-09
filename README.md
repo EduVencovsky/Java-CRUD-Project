@@ -1,0 +1,34 @@
+# Java-CRUD-Project
+
+User Table
+
+
+```
+CREATE TABLE `USER` (
+ `ID` int(11) NOT NULL AUTO_INCREMENT,
+ `USERNAME` varchar(50) NOT NULL,
+ `PASSWORD` varchar(42) DEFAULT NULL,
+ `EMAIL` varchar(100) NOT NULL,
+ PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1
+```
+
+Client Table
+
+```
+CREATE TABLE `client` (
+ `ID` int(11) NOT NULL AUTO_INCREMENT,
+ `USER_ID` int(11) NOT NULL,
+ `NAME` varchar(100) NOT NULL,
+ `CPF` varchar(30) NOT NULL,
+ `PHONE` varchar(30) NOT NULL,
+ `CEP` varchar(30) NOT NULL,
+ `ADRESS` varchar(100) NOT NULL,
+ `ADRESS_NUMBER` varchar(30) NOT NULL,
+ `CITY` varchar(50) NOT NULL,
+ `NEIGHBORHOOD` varchar(50) NOT NULL,
+ PRIMARY KEY (`ID`),
+ KEY `CLIENT_X_USER` (`USER_ID`),
+ KEY `USER_ID` (`USER_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1
+```
