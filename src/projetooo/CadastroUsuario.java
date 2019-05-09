@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
+        
 /**
  *
  * @author Eduardo
@@ -162,7 +162,8 @@ public class CadastroUsuario extends javax.swing.JFrame {
         Connection conn = new mysqlConnector().conn;
         try {                
             Statement stmd = conn.createStatement();
-            int rs = stmd.executeUpdate("INSERT INTO USER (USERNAME, PASSWORD, EMAIL) VALUES ('" + usuario + "', '" + senha + "', '" + email + "')");
+            int rs = stmd.executeUpdate("INSERT INTO USER (USERNAME, PASSWORD, EMAIL) VALUES ('" + usuario + "', PASSWORD('" + senha + "'), '" + email + "')",
+                    Statement.RETURN_GENERATED_KEYS);
 
             if(rs == 1){
                 Inicio telaInicial = new Inicio();
@@ -181,6 +182,8 @@ public class CadastroUsuario extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Problema de connexão com Servidor", "Erro de login", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Problema com Servidor", "Erro Inesperado", JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_registerUserButtonActionPerformed
@@ -226,82 +229,10 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
-    private javax.swing.JButton btnLogin;
-    private javax.swing.JButton btnLogin1;
-    private javax.swing.JButton btnLogin10;
-    private javax.swing.JButton btnLogin11;
-    private javax.swing.JButton btnLogin12;
-    private javax.swing.JButton btnLogin13;
-    private javax.swing.JButton btnLogin14;
-    private javax.swing.JButton btnLogin16;
-    private javax.swing.JButton btnLogin17;
-    private javax.swing.JButton btnLogin3;
-    private javax.swing.JButton btnLogin4;
-    private javax.swing.JButton btnLogin5;
-    private javax.swing.JButton btnLogin6;
-    private javax.swing.JButton btnLogin7;
-    private javax.swing.JButton btnLogin8;
-    private javax.swing.JButton btnLogin9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPasswordField jpfSenha;
-    private javax.swing.JPasswordField jpfSenha1;
-    private javax.swing.JPasswordField jpfSenha2;
-    private javax.swing.JPasswordField jpfSenha3;
-    private javax.swing.JPasswordField jpfSenha4;
-    private javax.swing.JPasswordField jpfSenha5;
-    private javax.swing.JPasswordField jpfSenha6;
-    private javax.swing.JPasswordField jpfSenha7;
-    private javax.swing.JLabel lbSenha;
-    private javax.swing.JLabel lbSenha1;
-    private javax.swing.JLabel lbSenha2;
-    private javax.swing.JLabel lbSenha3;
-    private javax.swing.JLabel lbSenha4;
-    private javax.swing.JLabel lbSenha5;
-    private javax.swing.JLabel lbSenha6;
-    private javax.swing.JLabel lbSenha7;
-    private javax.swing.JLabel lbSubtitulo;
-    private javax.swing.JLabel lbSubtitulo1;
-    private javax.swing.JLabel lbSubtitulo2;
-    private javax.swing.JLabel lbSubtitulo3;
-    private javax.swing.JLabel lbSubtitulo4;
-    private javax.swing.JLabel lbSubtitulo5;
-    private javax.swing.JLabel lbSubtitulo6;
-    private javax.swing.JLabel lbSubtitulo7;
-    private javax.swing.JLabel lbTitulo;
-    private javax.swing.JLabel lbTitulo1;
-    private javax.swing.JLabel lbTitulo2;
-    private javax.swing.JLabel lbTitulo3;
-    private javax.swing.JLabel lbTitulo4;
-    private javax.swing.JLabel lbTitulo5;
-    private javax.swing.JLabel lbTitulo6;
-    private javax.swing.JLabel lbTitulo7;
-    private javax.swing.JLabel lbUsuario;
-    private javax.swing.JLabel lbUsuario1;
-    private javax.swing.JLabel lbUsuario2;
-    private javax.swing.JLabel lbUsuario3;
-    private javax.swing.JLabel lbUsuario4;
-    private javax.swing.JLabel lbUsuario5;
-    private javax.swing.JLabel lbUsuario6;
-    private javax.swing.JLabel lbUsuario7;
     private javax.swing.JButton registerUserButton;
-    private javax.swing.JTextField txfUsuario;
-    private javax.swing.JTextField txfUsuario2;
-    private javax.swing.JTextField txfUsuario3;
-    private javax.swing.JTextField txfUsuario4;
-    private javax.swing.JTextField txfUsuario5;
-    private javax.swing.JTextField txfUsuario6;
-    private javax.swing.JTextField txfUsuario7;
-    private javax.swing.JTextField txfUsuario9;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtSenha;
     private javax.swing.JTextField txtUsuario;

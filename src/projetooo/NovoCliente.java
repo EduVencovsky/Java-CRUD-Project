@@ -6,6 +6,14 @@
 package projetooo;
 
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -64,22 +72,22 @@ public class NovoCliente extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lbCadNome = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txCadNome = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
         lbCadCPF = new javax.swing.JLabel();
-        ffCadCPF = new javax.swing.JFormattedTextField();
+        txtCPF = new javax.swing.JFormattedTextField();
         lbCadTelefone = new javax.swing.JLabel();
-        ffCadTelefone = new javax.swing.JFormattedTextField();
+        txtTelefone = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         lbCadCEP = new javax.swing.JLabel();
-        ffCadCEP = new javax.swing.JFormattedTextField();
+        txtCEP = new javax.swing.JFormattedTextField();
         lbCadEndereco = new javax.swing.JLabel();
-        txCadEndereco = new javax.swing.JTextField();
+        txtEndereco = new javax.swing.JTextField();
         lbCadNumero = new javax.swing.JLabel();
-        txCadNumero = new javax.swing.JTextField();
+        txtNumero = new javax.swing.JTextField();
         lbCadBairro = new javax.swing.JLabel();
-        txCadCidade = new javax.swing.JTextField();
+        txtCidade = new javax.swing.JTextField();
         lbCadCidade = new javax.swing.JLabel();
-        txCadBairro1 = new javax.swing.JTextField();
+        txtBairro = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -191,9 +199,9 @@ public class NovoCliente extends javax.swing.JFrame {
         jLabel3.setText("Cadastrar novo cliente");
         jLabel3.setToolTipText("");
 
-        txCadNome.addActionListener(new java.awt.event.ActionListener() {
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txCadNomeActionPerformed(evt);
+                txtNomeActionPerformed(evt);
             }
         });
 
@@ -201,17 +209,17 @@ public class NovoCliente extends javax.swing.JFrame {
         lbCadCPF.setText("CPF");
 
         try {
-            ffCadCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            txtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        ffCadCPF.setPreferredSize(new java.awt.Dimension(51, 20));
+        txtCPF.setPreferredSize(new java.awt.Dimension(51, 20));
 
         lbCadTelefone.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lbCadTelefone.setText("Telefone");
 
         try {
-            ffCadTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ####-####")));
+            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -224,7 +232,7 @@ public class NovoCliente extends javax.swing.JFrame {
         lbCadCEP.setText("CEP");
 
         try {
-            ffCadCEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###-###")));
+            txtCEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###-###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -245,6 +253,11 @@ public class NovoCliente extends javax.swing.JFrame {
         btnCadastrar.setForeground(new java.awt.Color(255, 255, 255));
         btnCadastrar.setText("Cadastrar cliente");
         btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -258,14 +271,14 @@ public class NovoCliente extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
-                                .addComponent(ffCadCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(22, 22, 22)
-                                .addComponent(ffCadTelefone))
+                                .addComponent(txtTelefone))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(lbNumero)
                                 .addGap(0, 0, 0)
                                 .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(txCadNome)
+                            .addComponent(txtNome)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -294,21 +307,21 @@ public class NovoCliente extends javax.swing.JFrame {
                             .addComponent(lbCadNumero)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txCadNumero)
-                                    .addComponent(ffCadCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNumero)
+                                    .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbCadCEP, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(42, 42, 42)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txCadEndereco)
+                                    .addComponent(txtEndereco)
                                     .addComponent(lbCadEndereco)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lbCadBairro)
-                                            .addComponent(txCadBairro1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(27, 27, 27)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lbCadCidade)
-                                            .addComponent(txCadCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)))))
+                                            .addComponent(txtCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)))))
                             .addComponent(jLabel4))))
                 .addContainerGap())
         );
@@ -323,15 +336,15 @@ public class NovoCliente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lbCadNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txCadNome, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbCadCPF)
                     .addComponent(lbCadTelefone))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ffCadCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ffCadTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(jLabel4)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,26 +363,23 @@ public class NovoCliente extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lbCadCEP)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ffCadCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lbCadEndereco)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txCadEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbCadNumero)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(lbCadBairro)
                                 .addComponent(lbCadCidade)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txCadNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txCadBairro1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txCadCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -398,9 +408,9 @@ public class NovoCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txCadNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txCadNomeActionPerformed
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txCadNomeActionPerformed
+    }//GEN-LAST:event_txtNomeActionPerformed
 
     private void btnNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoClienteActionPerformed
         // TODO add your handling code here:
@@ -424,6 +434,77 @@ public class NovoCliente extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        List<String> camposRequeridos = new ArrayList<String>();
+        String nome = txtNome.getText();        
+        String cpf = txtCPF.getText();       
+        String telefone = txtTelefone.getText();
+        String cep = txtCEP.getText();
+        String endereco = txtEndereco.getText();
+        String numero = txtNumero.getText();
+        String bairro = txtBairro.getText();
+        String cidade = txtCidade.getText();
+        
+        if("".equals(nome)) {
+            camposRequeridos.add("Nome");
+        }        
+        if("".equals(cpf)) {
+            camposRequeridos.add("CPF");
+        }        
+        if("".equals(telefone)) {
+            camposRequeridos.add("Telefone");
+        }        
+        if("".equals(cep)) {
+            camposRequeridos.add("CEP");
+        }        
+        if("".equals(endereco)) {
+            camposRequeridos.add("Endereço");
+        }        
+        if("".equals(numero)) {
+            camposRequeridos.add("Numero");
+        }        
+        if("".equals(bairro)) {
+            camposRequeridos.add("Bairro");
+        }        
+        if("".equals(cidade)) {
+            camposRequeridos.add("Cidade");
+        }
+        if(camposRequeridos.size() > 0 ){
+            String erro = String.join(", ", camposRequeridos);
+            JOptionPane.showMessageDialog(null,"Os campos " + erro + " são necessarios", "", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        Connection conn = new mysqlConnector().conn;
+        try {                
+            Statement stmd = conn.createStatement();
+            int rs = stmd.executeUpdate("INSERT INTO CLIENT (USER_ID, NAME, CPF, PHONE, CEP, ADRESS, ADRESS_NUMBER, CITY, NEIGHBORHOOD)" + 
+                    "VALUES ('" + GlobalVariables.UserId + "', '" 
+                    + nome + "', '" 
+                    + cpf + "', '" 
+                    + telefone + "', '" 
+                    + cep + "', '" 
+                    + endereco + "', '" 
+                    + numero + "', '" 
+                    + cidade + "', '" 
+                    + bairro + "')");
+
+            if(rs == 1){
+                ListaClientes telaListaClientes = new ListaClientes();
+                telaListaClientes.setVisible(true); // mostrar tela
+                telaListaClientes.setLocationRelativeTo(null); //abrir no centro                 
+                this.dispose();
+            } else{ 
+                JOptionPane.showMessageDialog(null, "Cadastro Invalido", "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Problema de connexão com Servidor", "Erro de login", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -469,9 +550,6 @@ public class NovoCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnListaClientes;
     private javax.swing.JButton btnNovoCliente;
     private javax.swing.JButton btnSair;
-    private javax.swing.JFormattedTextField ffCadCEP;
-    private javax.swing.JFormattedTextField ffCadCPF;
-    private javax.swing.JFormattedTextField ffCadTelefone;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -492,10 +570,13 @@ public class NovoCliente extends javax.swing.JFrame {
     private javax.swing.JLabel lbNumero;
     private javax.swing.JLabel lbRua;
     private javax.swing.JLabel lbTelefone;
-    private javax.swing.JTextField txCadBairro1;
-    private javax.swing.JTextField txCadCidade;
-    private javax.swing.JTextField txCadEndereco;
-    private javax.swing.JTextField txCadNome;
-    private javax.swing.JTextField txCadNumero;
+    private javax.swing.JTextField txtBairro;
+    private javax.swing.JFormattedTextField txtCEP;
+    private javax.swing.JFormattedTextField txtCPF;
+    private javax.swing.JTextField txtCidade;
+    private javax.swing.JTextField txtEndereco;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtNumero;
+    private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }

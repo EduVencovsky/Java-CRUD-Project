@@ -64,16 +64,16 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="ffCadCPF" min="-2" pref="250" max="-2" attributes="0"/>
+                                  <Component id="txtCPF" min="-2" pref="250" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Component id="ffCadTelefone" max="32767" attributes="0"/>
+                                  <Component id="txtTelefone" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="lbNumero" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                   <Component id="btnCadastrar" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="txCadNome" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtNome" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
@@ -111,23 +111,23 @@
                               <Component id="lbCadNumero" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="txCadNumero" max="32767" attributes="0"/>
-                                      <Component id="ffCadCEP" alignment="1" min="-2" pref="119" max="-2" attributes="0"/>
+                                      <Component id="txtNumero" max="32767" attributes="0"/>
+                                      <Component id="txtCEP" alignment="1" min="-2" pref="119" max="-2" attributes="0"/>
                                       <Component id="lbCadCEP" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txCadEndereco" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtEndereco" alignment="0" max="32767" attributes="0"/>
                                       <Component id="lbCadEndereco" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="lbCadBairro" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txCadBairro1" min="-2" pref="142" max="-2" attributes="0"/>
+                                              <Component id="txtBairro" min="-2" pref="142" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="lbCadCidade" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txCadCidade" pref="178" max="32767" attributes="0"/>
+                                              <Component id="txtCidade" pref="173" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -151,7 +151,7 @@
                   <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
                   <Component id="lbCadNome" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txCadNome" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="txtNome" min="-2" pref="32" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lbCadCPF" min="-2" max="-2" attributes="0"/>
@@ -159,8 +159,8 @@
                   </Group>
                   <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="ffCadCPF" min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="ffCadTelefone" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="txtCPF" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="txtTelefone" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
@@ -181,12 +181,12 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="lbCadCEP" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="ffCadCEP" min="-2" pref="33" max="-2" attributes="0"/>
+                                  <Component id="txtCEP" min="-2" pref="33" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="lbCadEndereco" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txCadEndereco" min="-2" pref="34" max="-2" attributes="0"/>
+                                  <Component id="txtEndereco" min="-2" pref="34" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -197,17 +197,12 @@
                                   <Component id="lbCadCidade" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txCadNumero" min="-2" pref="35" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txCadBairro1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <Component id="txCadCidade" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                  </Group>
+                              <Component id="txtNumero" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                  <Component id="txtBairro" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                                  <Component id="txtCidade" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -434,9 +429,9 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txCadNome">
+        <Component class="javax.swing.JTextField" name="txtNome">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txCadNomeActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomeActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbCadCPF">
@@ -447,7 +442,7 @@
             <Property name="text" type="java.lang.String" value="CPF"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="ffCadCPF">
+        <Component class="javax.swing.JFormattedTextField" name="txtCPF">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="###.###.###-##" subtype="-1" type="5"/>
@@ -465,7 +460,7 @@
             <Property name="text" type="java.lang.String" value="Telefone"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="ffCadTelefone">
+        <Component class="javax.swing.JFormattedTextField" name="txtTelefone">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="(##) ####-####" subtype="-1" type="5"/>
@@ -489,7 +484,7 @@
             <Property name="text" type="java.lang.String" value="CEP"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="ffCadCEP">
+        <Component class="javax.swing.JFormattedTextField" name="txtCEP">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="##.###-###" subtype="-1" type="5"/>
@@ -504,7 +499,7 @@
             <Property name="text" type="java.lang.String" value="Endere&#xe7;o"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txCadEndereco">
+        <Component class="javax.swing.JTextField" name="txtEndereco">
         </Component>
         <Component class="javax.swing.JLabel" name="lbCadNumero">
           <Properties>
@@ -514,7 +509,7 @@
             <Property name="text" type="java.lang.String" value="N&#xfa;mero"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txCadNumero">
+        <Component class="javax.swing.JTextField" name="txtNumero">
         </Component>
         <Component class="javax.swing.JLabel" name="lbCadBairro">
           <Properties>
@@ -524,7 +519,7 @@
             <Property name="text" type="java.lang.String" value="Bairro"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txCadCidade">
+        <Component class="javax.swing.JTextField" name="txtCidade">
         </Component>
         <Component class="javax.swing.JLabel" name="lbCadCidade">
           <Properties>
@@ -534,7 +529,7 @@
             <Property name="text" type="java.lang.String" value="Cidade"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txCadBairro1">
+        <Component class="javax.swing.JTextField" name="txtBairro">
         </Component>
         <Component class="javax.swing.JButton" name="btnCadastrar">
           <Properties>
@@ -549,6 +544,9 @@
               <Color id="Cursor em Forma de M&#xe3;o"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
