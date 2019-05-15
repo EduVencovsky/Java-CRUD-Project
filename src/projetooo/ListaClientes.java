@@ -6,8 +6,13 @@
 package projetooo;
 
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -20,7 +25,6 @@ public class ListaClientes extends javax.swing.JFrame {
      */
     public ListaClientes() {
         initComponents();
-        
         this.setLocationRelativeTo(null);
 
         btnListaClientes.setOpaque(true);
@@ -34,6 +38,26 @@ public class ListaClientes extends javax.swing.JFrame {
 
         btnSair.setOpaque(true);
         btnSair.setBackground(new Color(0, 20, 30));
+        
+        
+        Connection conn = new mysqlConnector().conn;
+        
+        try {
+            Statement stmd = conn.createStatement();
+            ResultSet rs = stmd.executeQuery("SELECT * FROM client WHERE USER_ID = " + GlobalVariables.UserId);
+            DefaultTableModel jTable = (DefaultTableModel) jTable1.getModel();
+            while(rs.next()){
+                Integer id = rs.getInt("id");
+                String name = rs.getString("name");
+                String cpf = rs.getString("cpf");
+                String phone = rs.getString("phone");
+                String adress = rs.getString("adress");
+                jTable.addRow(new Object[]{id, name, cpf, phone, adress});
+                
+            }
+        } catch (Exception e) {
+        }
+        
     }
 
     /**
@@ -167,18 +191,14 @@ public class ListaClientes extends javax.swing.JFrame {
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Vitor Facioli", "443.459.168-10", "(19) 3408-6370", "Rua Prof. Aracy de Jesus, 470"},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Nome", "CPF", "Telefone", "Endereço"
+                "Id", "Nome", "CPF", "Telefone", "Endereço"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -194,6 +214,7 @@ public class ListaClientes extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(1).setResizable(false);
             jTable1.getColumnModel().getColumn(2).setResizable(false);
             jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

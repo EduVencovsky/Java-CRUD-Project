@@ -6,8 +6,12 @@
 package projetooo;
 
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -341,16 +345,27 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         
-        lbEncontrado.setText("Cliente encontrado!");
-        lbNome.setText("Vitor Facioli");
-        lbCPF.setText("443.459.168-10");
-        lbTelefone.setText("(19) 3408-6388");
-        lbCEP.setText("13.467-652");
-        lbRua.setText("Professora Aracy de Jesus");
-        lbNumero.setText("470");
-        lbComplemento.setText("Casa");
-        txfTelefone.setText("");
-
+        Connection conn = new mysqlConnector().conn;
+        try {
+            Statement stmd = conn.createStatement();
+            ResultSet rs = stmd.executeQuery("SELECT * FROM client WHERE USER_ID = " + GlobalVariables.UserId + 
+                    " AND PHONE = '" + txfTelefone.getText() + "'");
+            if(rs.next()){
+                lbEncontrado.setText("Cliente encontrado!");
+                lbNome.setText(rs.getString("name"));
+                lbCPF.setText(rs.getString("cpf"));
+                lbTelefone.setText(rs.getString("phone"));
+                lbCEP.setText(rs.getString("cep"));
+                lbRua.setText(rs.getString("adress"));
+                lbNumero.setText(rs.getString("adress_number"));
+                txfTelefone.setText(rs.getString("phone"));
+            }
+            else {                
+                JOptionPane.showMessageDialog(null, "Não foi possivel encontrar cliente com telefone igual a " + txfTelefone.getText(), "Nenhum cliente encontrado", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);       
+        }
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
