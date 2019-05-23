@@ -23,12 +23,13 @@ import javax.swing.JOptionPane;
  */
 public class NovoCliente extends javax.swing.JFrame {
 
+    public String id;
     /**
      * Creates new form TelaInicial
      */
     public NovoCliente() {
         initComponents();
-        
+        this.id = null;
         this.setLocationRelativeTo(null);
 
         btnListaClientes.setOpaque(true);
@@ -46,7 +47,45 @@ public class NovoCliente extends javax.swing.JFrame {
         btnCadastrar.setOpaque(true);
         btnCadastrar.setBackground(new Color(0, 20, 30));
     }
+    
+    public NovoCliente(String id, String nome , String cpf, String telefone, String cep,
+        String endereco,
+        String numero,
+        String bairro,
+        String cidade ) {
+        
+        initComponents();
+        this.id = id;
+        
+        txtNome.setText(nome);
+        txtCPF.setText(cpf);       
+        txtTelefone.setText(telefone);
+        txtCEP.setText(cep);
+        txtEndereco.setText(endereco);
+        txtNumero.setText(numero);
+        txtBairro.setText(bairro);
+        txtCidade.setText(cidade);
+        
+        this.setLocationRelativeTo(null);
 
+        btnListaClientes.setOpaque(true);
+        btnListaClientes.setBackground(new Color(0, 20, 30));
+
+        btnInicio.setOpaque(true);
+        btnInicio.setBackground(new Color(0, 20, 30));
+
+        btnNovoCliente.setOpaque(true);
+        btnNovoCliente.setBackground(new Color(0, 20, 30));
+
+        btnSair.setOpaque(true);
+        btnSair.setBackground(new Color(0, 20, 30));
+        
+        btnCadastrar.setOpaque(true);
+        btnCadastrar.setBackground(new Color(0, 20, 30));
+        
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -479,24 +518,48 @@ public class NovoCliente extends javax.swing.JFrame {
         Connection conn = new mysqlConnector().conn;
         try {                
             Statement stmd = conn.createStatement();
-            int rs = stmd.executeUpdate("INSERT INTO CLIENT (USER_ID, NAME, CPF, PHONE, CEP, ADRESS, ADRESS_NUMBER, CITY, NEIGHBORHOOD)" + 
-                    "VALUES ('" + GlobalVariables.UserId + "', '" 
-                    + nome + "', '" 
-                    + cpf + "', '" 
-                    + telefone + "', '" 
-                    + cep + "', '" 
-                    + endereco + "', '" 
-                    + numero + "', '" 
-                    + cidade + "', '" 
-                    + bairro + "')");
+            Integer rs = null;
+            if(this.id != null){
+                rs = stmd.executeUpdate("UPDATE CLIENT SET NAME = '"+ nome + 
+                        "', CPF = '"+ cpf + 
+                        "', PHONE = '"+ telefone + 
+                        "', CEP = '"+ cep + 
+                        "', ADRESS = '"+ endereco + 
+                        "', ADRESS_NUMBER = '"+ numero + 
+                        "', CITY = '"+ cidade + 
+                        "', NEIGHBORHOOD = '"+ bairro +
+                        "'" + 
+                        "WHERE USER_ID = '" + GlobalVariables.UserId + 
+                        "' AND ID = '" + this.id + "'");
+                if(rs == 1){
+                    ListaClientes telaListaClientes = new ListaClientes();
+                    telaListaClientes.setVisible(true); // mostrar tela
+                    telaListaClientes.setLocationRelativeTo(null); //abrir no centro                 
+                    this.dispose();
+                } else{ 
+                    JOptionPane.showMessageDialog(null, "Cadastro Invalido", "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            } else {
+                rs = stmd.executeUpdate("INSERT INTO CLIENT (USER_ID, NAME, CPF, PHONE, CEP, ADRESS, ADRESS_NUMBER, CITY, NEIGHBORHOOD)" + 
+                        "VALUES ('" + GlobalVariables.UserId + "', '" 
+                        + nome + "', '" 
+                        + cpf + "', '" 
+                        + telefone + "', '" 
+                        + cep + "', '" 
+                        + endereco + "', '" 
+                        + numero + "', '" 
+                        + cidade + "', '" 
+                        + bairro + "')");
 
-            if(rs == 1){
-                ListaClientes telaListaClientes = new ListaClientes();
-                telaListaClientes.setVisible(true); // mostrar tela
-                telaListaClientes.setLocationRelativeTo(null); //abrir no centro                 
-                this.dispose();
-            } else{ 
-                JOptionPane.showMessageDialog(null, "Cadastro Invalido", "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
+                if(rs == 1){
+                    ListaClientes telaListaClientes = new ListaClientes();
+                    telaListaClientes.setVisible(true); // mostrar tela
+                    telaListaClientes.setLocationRelativeTo(null); //abrir no centro                 
+                    this.dispose();
+                } else{ 
+                    JOptionPane.showMessageDialog(null, "Cadastro Invalido", "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
+                }
             }
 
         } catch (SQLException ex) {
