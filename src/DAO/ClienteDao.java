@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package projetooo;
+package DAO;
 
 /**
  *
  * @author Eduardo
  */
-public class GlobalVariables {
-    public static int UserId;
+public class ClienteDao {
+    
 }

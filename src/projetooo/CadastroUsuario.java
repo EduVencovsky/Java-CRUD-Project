@@ -6,6 +6,7 @@
 
 package projetooo;
 
+import DAO.UsuarioDao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -159,31 +160,21 @@ public class CadastroUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Os campos " + erro + " são necessarios", "", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Connection conn = new mysqlConnector().conn;
-        try {                
-            Statement stmd = conn.createStatement();
-            int rs = stmd.executeUpdate("INSERT INTO USER (USERNAME, PASSWORD, EMAIL) VALUES ('" + usuario + "', PASSWORD('" + senha + "'), '" + email + "')",
-                    Statement.RETURN_GENERATED_KEYS);
-
-            if(rs == 1){
+        
+        try {
+            Integer id = UsuarioDao.singUp(usuario, senha, email);
+            if(id >= 0){
                 Inicio telaInicial = new Inicio();
-                telaInicial.setVisible(true); // mostrar tela
-                telaInicial.setLocationRelativeTo(null); //abrir no centro
-                ResultSet generatedKeys = stmd.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    GlobalVariables.UserId = generatedKeys.getInt(1);
-                }
-                 
+                telaInicial.setVisible(true);
+                telaInicial.setLocationRelativeTo(null);
+                GlobalVariables.UserId = id;
                 this.dispose();
-            } else{ 
-                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Erro de login", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao criar Usuario", "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
             }
-
-        } catch (SQLException ex) {
+        } catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Problema de connexão com Servidor", "Erro de login", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Problema com Servidor", "Erro Inesperado", JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_registerUserButtonActionPerformed

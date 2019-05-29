@@ -5,6 +5,7 @@
  */
 package projetooo;
 
+import DAO.UsuarioDao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -149,29 +150,23 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        Connection conn = new mysqlConnector().conn;
-        try {                
+
             String usuario = txfUsuario.getText();
             String senha = jpfSenha.getText();
-            Statement stmd = conn.createStatement();
-            ResultSet rs = stmd.executeQuery("SELECT ID FROM USER WHERE USERNAME = '" + usuario + "' AND PASSWORD = PASSWORD('" + senha + "')");
-
-            if(rs.next()){
-                Inicio telaInicial = new Inicio();
-                telaInicial.setVisible(true); // mostrar tela
-                telaInicial.setLocationRelativeTo(null); //abrir no centro
-                GlobalVariables.UserId = rs.getInt("ID");
-                this.dispose();
-            } else{ 
-                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Erro de login", JOptionPane.ERROR_MESSAGE);
+            try{                
+                Integer userId = UsuarioDao.login(usuario, senha);
+                if(userId >= 0){
+                    Inicio telaInicial = new Inicio();
+                    telaInicial.setVisible(true); // mostrar tela
+                    telaInicial.setLocationRelativeTo(null); //abrir no centro
+                    GlobalVariables.UserId = userId;
+                    this.dispose();
+                } else{ 
+                    JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Erro de login", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch(SQLException e){                
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de login", JOptionPane.ERROR_MESSAGE);
             }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Problema de connexão com Servidor", "Erro de login", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Problema com Servidor", "Erro Inesperado", JOptionPane.ERROR_MESSAGE);
-        }
        
     }//GEN-LAST:event_btnLoginActionPerformed
 

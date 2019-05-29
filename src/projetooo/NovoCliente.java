@@ -82,6 +82,7 @@ public class NovoCliente extends javax.swing.JFrame {
         
         btnCadastrar.setOpaque(true);
         btnCadastrar.setBackground(new Color(0, 20, 30));
+        btnCadastrar.setText("Alterar Dados do Usuario");
         
     }
 
@@ -532,6 +533,7 @@ public class NovoCliente extends javax.swing.JFrame {
                         "WHERE USER_ID = '" + GlobalVariables.UserId + 
                         "' AND ID = '" + this.id + "'");
                 if(rs == 1){
+                    JOptionPane.showMessageDialog(null, "Dados salvos com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     ListaClientes telaListaClientes = new ListaClientes();
                     telaListaClientes.setVisible(true); // mostrar tela
                     telaListaClientes.setLocationRelativeTo(null); //abrir no centro                 

@@ -20,7 +20,7 @@ public class mysqlConnector {
     
     public Connection conn = null;
     
-    mysqlConnector(){   
+    public mysqlConnector(){   
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
