@@ -5,6 +5,7 @@
  */
 package projetooo;
 
+import DAO.ClienteDao;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -516,59 +517,29 @@ public class NovoCliente extends javax.swing.JFrame {
             return;
         }
         
-        Connection conn = new mysqlConnector().conn;
-        try {                
-            Statement stmd = conn.createStatement();
-            Integer rs = null;
-            if(this.id != null){
-                rs = stmd.executeUpdate("UPDATE CLIENT SET NAME = '"+ nome + 
-                        "', CPF = '"+ cpf + 
-                        "', PHONE = '"+ telefone + 
-                        "', CEP = '"+ cep + 
-                        "', ADRESS = '"+ endereco + 
-                        "', ADRESS_NUMBER = '"+ numero + 
-                        "', CITY = '"+ cidade + 
-                        "', NEIGHBORHOOD = '"+ bairro +
-                        "'" + 
-                        "WHERE USER_ID = '" + GlobalVariables.UserId + 
-                        "' AND ID = '" + this.id + "'");
-                if(rs == 1){
-                    JOptionPane.showMessageDialog(null, "Dados salvos com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                    ListaClientes telaListaClientes = new ListaClientes();
-                    telaListaClientes.setVisible(true); // mostrar tela
-                    telaListaClientes.setLocationRelativeTo(null); //abrir no centro                 
-                    this.dispose();
-                } else{ 
-                    JOptionPane.showMessageDialog(null, "Cadastro Invalido", "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
-                }
-                
+        try{
+            boolean result = false;
+            if(id == null){
+                result = ClienteDao.createNewClient(GlobalVariables.UserId, nome, cpf, telefone, cep, endereco, numero, cidade, bairro);
             } else {
-                rs = stmd.executeUpdate("INSERT INTO CLIENT (USER_ID, NAME, CPF, PHONE, CEP, ADRESS, ADRESS_NUMBER, CITY, NEIGHBORHOOD)" + 
-                        "VALUES ('" + GlobalVariables.UserId + "', '" 
-                        + nome + "', '" 
-                        + cpf + "', '" 
-                        + telefone + "', '" 
-                        + cep + "', '" 
-                        + endereco + "', '" 
-                        + numero + "', '" 
-                        + cidade + "', '" 
-                        + bairro + "')");
-
-                if(rs == 1){
-                    ListaClientes telaListaClientes = new ListaClientes();
-                    telaListaClientes.setVisible(true); // mostrar tela
-                    telaListaClientes.setLocationRelativeTo(null); //abrir no centro                 
-                    this.dispose();
-                } else{ 
-                    JOptionPane.showMessageDialog(null, "Cadastro Invalido", "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
-                }
+                result = ClienteDao.updateClient(GlobalVariables.UserId, id, nome, cpf, telefone, cep, endereco, numero, cidade, bairro);
             }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Problema de connexão com Servidor", "Erro de login", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            
+            if(result) {                
+                JOptionPane.showMessageDialog(null, "Dados salvos com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                ListaClientes telaListaClientes = new ListaClientes();
+                telaListaClientes.setVisible(true);
+                telaListaClientes.setLocationRelativeTo(null);              
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Cadastro Invalido", "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "Problema de connexão com Servidor", "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
         }
-        
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**

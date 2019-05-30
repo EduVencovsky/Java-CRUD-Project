@@ -20,7 +20,7 @@ import projetooo.mysqlConnector;
  */
 public class ClienteDao {
     public static boolean createNewClient(
-            String userId, 
+            Integer userId, 
             String nome, 
             String cpf, 
             String telefone, 
@@ -31,27 +31,28 @@ public class ClienteDao {
             String bairro
     )  throws SQLException {
         Connection conn = new mysqlConnector().conn;
-        String insertClientSql = "INSERT INTO CLIENT (NAME, CPF, PHONE, CEP, ADRESS, ADRESS_NUMBER, CITY, NEIGHBORHOOD)" + 
-                        "VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? )" + 
-                        "WHERE USER_ID = ? ";
+        String insertClientSql = "INSERT INTO CLIENT (USER_ID, NAME, CPF, PHONE, CEP, ADRESS, ADRESS_NUMBER, CITY, NEIGHBORHOOD)" + 
+                        "VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? )";
         PreparedStatement preparedStatement = conn.prepareStatement(insertClientSql);
-        preparedStatement.setString(1, nome);
-        preparedStatement.setString(2, cpf);        
-        preparedStatement.setString(3, telefone);      
-        preparedStatement.setString(4, cep);      
-        preparedStatement.setString(5, endereco);      
-        preparedStatement.setString(6, numero);      
-        preparedStatement.setString(7, cidade);      
-        preparedStatement.setString(8, bairro);      
-        preparedStatement.setString(9, userId);
+        preparedStatement.setInt(1, userId);
+        preparedStatement.setString(2, nome);
+        preparedStatement.setString(3, cpf);        
+        preparedStatement.setString(4, telefone);      
+        preparedStatement.setString(5, cep);      
+        preparedStatement.setString(6, endereco);      
+        preparedStatement.setString(7, numero);      
+        preparedStatement.setString(8, cidade);      
+        preparedStatement.setString(9, bairro);      
+        
 
         Integer rs = preparedStatement.executeUpdate();
-        
+        System.out.println(rs);
+        System.out.println("create");
         return rs == 1;
     }
     
     public static boolean updateClient(
-            String userId, 
+            Integer userId, 
             String id,
             String nome, 
             String cpf, 
@@ -74,11 +75,13 @@ public class ClienteDao {
         preparedStatement.setString(6, numero);      
         preparedStatement.setString(7, cidade);      
         preparedStatement.setString(8, bairro);      
-        preparedStatement.setString(9, userId);        
+        preparedStatement.setInt(9, userId);        
         preparedStatement.setString(10, id);
 
         Integer rs = preparedStatement.executeUpdate();
-        
+        System.out.println(rs);        
+        System.out.println("update");
+
         return rs == 1;
     }
 }
