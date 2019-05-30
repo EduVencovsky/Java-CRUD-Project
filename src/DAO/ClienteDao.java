@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import projetooo.GlobalVariables;
 import projetooo.mysqlConnector;
 
@@ -83,5 +85,31 @@ public class ClienteDao {
         System.out.println("update");
 
         return rs == 1;
+    }
+    
+    public static Map<String, String> getClient(Integer userId, String id) throws SQLException {
+        Connection conn = new mysqlConnector().conn;
+        String loginSql = "SELECT * FROM client WHERE USER_ID = ? AND ID = ? ";
+        
+        PreparedStatement preparedStatement = conn.prepareStatement(loginSql);
+        preparedStatement.setInt(1, userId);
+        preparedStatement.setString(2, id);
+        
+        ResultSet rs = preparedStatement.executeQuery();
+        
+        Map<String, String> map = new HashMap<>();
+        
+        if(rs.next()){
+            map.put("name", rs.getString("name"));
+            map.put("cpf",rs.getString("cpf"));
+            map.put("phone",rs.getString("phone"));
+            map.put("cep", rs.getString("cep"));
+            map.put("adress", rs.getString("adress"));
+            map.put("adress_number", rs.getString("adress_number"));
+            map.put("neighborhood", rs.getString("neighborhood"));
+            map.put("city", rs.getString("city"));  
+        }
+        
+        return map;
     }
 }

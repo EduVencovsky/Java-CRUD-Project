@@ -5,10 +5,13 @@
  */
 package projetooo;
 
+import DAO.ClienteDao;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -376,6 +379,24 @@ public class ListaClientes extends javax.swing.JFrame {
         Connection conn = new mysqlConnector().conn;
         
         try {
+            Map result = ClienteDao.getClient(GlobalVariables.UserId, id);
+            if(result.isEmpty()){
+                JOptionPane.showMessageDialog(null, "ID não encontrado", "Erro de busca", JOptionPane.ERROR_MESSAGE);
+            } else {
+                NovoCliente telaNovoCliente; 
+                telaNovoCliente = new NovoCliente(id, result.get("name").toString(), result.get("cpf").toString(), result.get("phone").toString(), 
+                        result.get("cep").toString(), result.get("adress").toString(), result.get("adress_number").toString(),
+                        result.get("neighborhood").toString(), result.get("city").toString());
+                telaNovoCliente.setVisible(true); // mostrar tela
+                telaNovoCliente.setLocationRelativeTo(null); //abrir no centro
+                this.dispose();  
+            }
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ID nao encontrado", "Erro de busca", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+        try {
             Statement stmd = conn.createStatement();
             ResultSet rs = stmd.executeQuery("SELECT * FROM client WHERE USER_ID = " + GlobalVariables.UserId + " AND ID = " + id);
 
@@ -399,6 +420,7 @@ public class ListaClientes extends javax.swing.JFrame {
             }
             
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ID não encontrado", "Erro de busca", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEditar1ActionPerformed
 
