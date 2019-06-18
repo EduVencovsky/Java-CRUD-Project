@@ -117,7 +117,8 @@ public class ClienteDao {
         PreparedStatement preparedStatement = conn.prepareStatement(deleteSql);
         preparedStatement.setInt(1, userId);
         preparedStatement.setString(2, id);
+        int res = preparedStatement.executeUpdate();
         conn.close();
-        return preparedStatement.executeUpdate();
+        return res;
     }
 }
