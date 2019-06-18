@@ -33,12 +33,6 @@ public class mysqlConnector {
             conn = null; 
         }
     }
-
-    @Override
-    public void finalize() throws Throwable{
-        super.finalize();
-        close();
-    }
     
     public void close()
     {

@@ -10,10 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
-import projetooo.GlobalVariables;
 import projetooo.mysqlConnector;
 
 /**
@@ -48,8 +46,8 @@ public class ClienteDao {
         
 
         Integer rs = preparedStatement.executeUpdate();
-        System.out.println(rs);
-        System.out.println("create");
+
+        conn.close();
         return rs == 1;
     }
     
@@ -81,17 +79,16 @@ public class ClienteDao {
         preparedStatement.setString(10, id);
 
         Integer rs = preparedStatement.executeUpdate();
-        System.out.println(rs);        
-        System.out.println("update");
-
+        
+        conn.close();
         return rs == 1;
     }
     
     public static Map<String, String> getClient(Integer userId, String id) throws SQLException {
         Connection conn = new mysqlConnector().conn;
-        String loginSql = "SELECT * FROM client WHERE USER_ID = ? AND ID = ? ";
+        String getClientSql = "SELECT * FROM client WHERE USER_ID = ? AND ID = ? ";
         
-        PreparedStatement preparedStatement = conn.prepareStatement(loginSql);
+        PreparedStatement preparedStatement = conn.prepareStatement(getClientSql);
         preparedStatement.setInt(1, userId);
         preparedStatement.setString(2, id);
         
@@ -109,7 +106,18 @@ public class ClienteDao {
             map.put("neighborhood", rs.getString("neighborhood"));
             map.put("city", rs.getString("city"));  
         }
-        
+        conn.close();
         return map;
+    }
+        
+    public static int deleteClient(Integer userId, String id) throws SQLException {
+        Connection conn = new mysqlConnector().conn;
+        String deleteSql = "DELETE FROM client WHERE USER_ID = ? AND ID = ? ";
+        
+        PreparedStatement preparedStatement = conn.prepareStatement(deleteSql);
+        preparedStatement.setInt(1, userId);
+        preparedStatement.setString(2, id);
+        conn.close();
+        return preparedStatement.executeUpdate();
     }
 }

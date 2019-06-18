@@ -42,24 +42,8 @@ public class ListaClientes extends javax.swing.JFrame {
 
         btnSair.setOpaque(true);
         btnSair.setBackground(new Color(0, 20, 30));
-        
-
-        Connection conn = new mysqlConnector().conn;
-        try {
-            Statement stmd = conn.createStatement();
-            ResultSet rs = stmd.executeQuery("SELECT * FROM client WHERE USER_ID = " + GlobalVariables.UserId);
-            DefaultTableModel jTable = (DefaultTableModel) jTable1.getModel();
-            while(rs.next()){
-                Integer id = rs.getInt("id");
-                String name = rs.getString("name");
-                String cpf = rs.getString("cpf");
-                String phone = rs.getString("phone");
-                String adress = rs.getString("adress");
-                jTable.addRow(new Object[]{id, name, cpf, phone, adress});
-                
-            }
-        } catch (Exception e) {
-        }
+        //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        updateClientList();
         
     }
 
@@ -370,14 +354,31 @@ public class ListaClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        
-
+        String id = txtId.getText();
+        if(id.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Por favor, preencha o campo ID", "Erro de busca", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir registro " + id + "?", "Alerta" , JOptionPane.WARNING_MESSAGE);
+        if(confirm == JOptionPane.YES_OPTION){
+            try{
+                ClienteDao.deleteClient(GlobalVariables.UserId, id);
+                updateClientList();
+                JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                txtId.setText("");
+            } catch (SQLException ex) {                
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de exclusão", JOptionPane.ERROR_MESSAGE);
+            }            
+        }
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
         String id = txtId.getText();
         Connection conn = new mysqlConnector().conn;
-        
+        if(id.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Por favor, preencha o campo ID", "Erro de busca", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         try {
             Map result = ClienteDao.getClient(GlobalVariables.UserId, id);
             if(result.isEmpty()){
@@ -424,6 +425,33 @@ public class ListaClientes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEditar1ActionPerformed
 
+    private void updateClientList(){               
+
+        Connection conn = new mysqlConnector().conn;
+        try {
+            Statement stmd = conn.createStatement();
+            ResultSet rs = stmd.executeQuery("SELECT * FROM client WHERE USER_ID = " + GlobalVariables.UserId);
+            DefaultTableModel jTable = (DefaultTableModel) jTable1.getModel();
+            
+            if (jTable.getRowCount() > 0) {
+                for (int i = jTable.getRowCount() - 1; i > -1; i--) {
+                    jTable.removeRow(i);
+                }
+            }
+            
+            while(rs.next()){
+                Integer id = rs.getInt("id");
+                String name = rs.getString("name");
+                String cpf = rs.getString("cpf");
+                String phone = rs.getString("phone");
+                String adress = rs.getString("adress");
+                jTable.addRow(new Object[]{id, name, cpf, phone, adress});
+                
+            }
+        } catch (Exception e) {
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
