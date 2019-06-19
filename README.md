@@ -1,7 +1,11 @@
 # Java-CRUD-Project
 
-User Table
+Eduardo Vencovsky 201710281
+Vitor Facioli 201710292
 
+# DB
+
+User Table
 
 ```
 CREATE TABLE `USER` (
